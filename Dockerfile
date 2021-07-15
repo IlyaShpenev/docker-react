@@ -13,6 +13,8 @@ RUN npm run build
 
 #второй блок: запуск nginx
 FROM nginx
+#EXPOSE – инструкция, необходимая для прокидывания порта по умолчанию(например, необходима для корректной работы деплоя AWS elasticbeanstalk)
+EXPOSE 80
 # скопируем из предыдущего шага (стадии builder) (--from=builder) папку /usr/app/build в папку /usr/share/nginx/html
 COPY --from=builder /usr/app/build /usr/share/nginx/html
 
