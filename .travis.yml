@@ -9,3 +9,16 @@ before_install:
 
 script:
   - docker run -e CI=true ilyashpenev/docker-react npm run test # -e CI=true позволяет выполнить команду и выйти из нее по окончанию (это необходимо, поскольку npm run test, в данном случае, "бесконечная" команда, которая ожидает ввода пользователя для продолжения)
+
+# deploy config
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2" # taken from AWS account
+  app: "docker-react" # taken from AWS account
+  env: "Dockerreact-env" # taken from AWS account
+  bucket_name: "elasticbeanstalk-us-east-2-818175165069" # taken from AWS account
+  bucket_path: "docker-react" # taken from AWS account
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY # env переменная добавленная к проекту в аккаунте travis для проекта docker-react
+  secret_access_key: $AWS_SECRET_KEY # env переменная добавленная к проекту в аккаунте travis для проекта docker-react
