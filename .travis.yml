@@ -1,0 +1,11 @@
+sudo: required # использовать полные права для запуска билда
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - docker build -t ilyashpenev/docker-react -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true ilyashpenev/docker-react npm run test # -e CI=true позволяет выполнить команду и выйти из нее по окончанию (это необходимо, поскольку npm run test, в данном случае, "бесконечная" команда, которая ожидает ввода пользователя для продолжения)
